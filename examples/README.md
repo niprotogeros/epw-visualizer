@@ -10,7 +10,8 @@ EPW (EnergyPlus Weather) files contain hourly weather data for specific location
 ### Official Sources
 - **[EnergyPlus Weather Data](https://energyplus.net/weather)** - The primary source with global coverage
 - **[Climate.OneBuilding.Org](https://climate.onebuilding.org/)** - Comprehensive weather data repository
-- **[NREL](https://www.nrel.gov/analysis/sam/weather-data.html)** - National Renewable Energy Laboratory data
+- **[NREL](https://sam.nrel.gov/weather-data.html)** - National Renewable Energy Laboratory data
+- *[Ladybug Tools Epwmap](https://www.ladybug.tools/epwmap/)** - An interactive web tool to easily locate and download free .epw files from around the world
 
 ### Popular Locations to Try
 - Major cities (New York, London, Tokyo, Sydney)
