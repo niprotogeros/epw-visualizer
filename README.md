@@ -15,6 +15,7 @@ EPW Visualizer is an interactive web application that allows users to upload and
 - Real-time data filtering and analysis
 - Export capabilities for charts and processed data
 - Responsive design for desktop and mobile viewing
+- **Windows desktop shortcut & app icon** (optional)
 
 ## Installation
 
@@ -83,15 +84,28 @@ streamlit run app.py
 
 4. Explore the various visualization options and filters
 
+## Optional: Windows desktop shortcut & icon
+
+You can launch the app from a desktop shortcut that activates your virtual environment and starts Streamlit.
+
+**Files:**
+
+- `launch_epw_visualizer.bat` – starts the app (provided in the repository root).
+- `scripts/windows/Create_EPWVisualizer_Shortcut.vbs` – creates a desktop shortcut.
+- `assets/icons/EPWVisualizer.ico` – icon used by the shortcut.
+
 ## File Structure
 
 ```
 epw-visualizer/
-├── app.py              # Main Streamlit application
-├── requirements.txt    # Python dependencies
-├── README.md          # Project documentation
-├── LICENSE            # MIT License
-└── .gitignore         # Git ignore rules
+├── epw_visualizer.py
+├── launch_epw_visualizer.bat
+├── requirements.txt
+├── README.md
+├── REPOSITORY_SUMMARY.md
+├── INSTALLATION.md
+├── Create_EPWVisualizer_Shortcut.vbs
+├── EPWVisualizer.ico
 ```
 
 ## Contributing

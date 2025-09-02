@@ -7,21 +7,23 @@ This document provides an overview of all files and directories in this reposito
 
 ```
 epw_visualizer_repo/
-├── epw_visualizer.py           # Main application script
-├── README.md                   # Project overview and quick start guide
-├── LICENSE                     # MIT License for the project
-├── requirements.txt            # Python dependencies
-├── CONTRIBUTING.md             # Guidelines for contributors
-├── REPOSITORY_SUMMARY.md       # This file - complete repository overview
+├── epw_visualizer.py                   # Main application script
+├── README.md                           # Project overview and quick start guide
+├── LICENSE                             # MIT License for the project
+├── requirements.txt                    # Python dependencies
+├── CONTRIBUTING.md                     # Guidelines for contributors
+├── REPOSITORY_SUMMARY.md               # This file - complete repository overview
+├── Create_EPWVisualizer_Shortcut.vbs   # Creates a desktop shortcut to launch the app
+├── EPWVisualizer.ico                   # Desktop shortcut icon for Windows
 ├── .github/
 │   └── ISSUE_TEMPLATE/
-│       ├── bug_report.md       # Template for reporting bugs
-│       └── feature_request.md  # Template for requesting features
+│       ├── bug_report.md               # Template for reporting bugs
+│       └── feature_request.md          # Template for requesting features
 ├── docs/
-│   └── INSTALLATION.md         # Detailed installation instructions
+│   └── INSTALLATION.md                 # Detailed installation instructions
 ├── examples/
-│   └── README.md              # Guide for obtaining and using EPW files
-└── src/                       # Directory for future code modularization
+│   └── README.md                       # Guide for obtaining and using EPW files
+└── src/                                # Directory for future code modularization
 ```
 
 ## File Descriptions

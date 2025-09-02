@@ -8,10 +8,14 @@ This directory is intended for example EPW files and usage demonstrations.
 EPW (EnergyPlus Weather) files contain hourly weather data for specific locations. You can download them from several sources:
 
 ### Official Sources
+- **[Ladybug Tools Epwmap](https://www.ladybug.tools/epwmap/)** - An interactive web tool to easily locate and download free .epw files from around the world from multiple sourses
 - **[EnergyPlus Weather Data](https://energyplus.net/weather)** - The primary source with global coverage
 - **[Climate.OneBuilding.Org](https://climate.onebuilding.org/)** - Comprehensive weather data repository
 - **[NREL](https://sam.nrel.gov/weather-data.html)** - National Renewable Energy Laboratory data
-- *[Ladybug Tools Epwmap](https://www.ladybug.tools/epwmap/)** - An interactive web tool to easily locate and download free .epw files from around the world
+
+### Future Weather Scenarios
+- **[Future Weather Generator](https://future-weather-generator.adai.pt/)** - A free app for researchers and building design professionals. 
+- It morphs present-day hourly EPW files used in dynamic simulation to match climate change scenarios and the urban heat island effect.
 
 ### Popular Locations to Try
 - Major cities (New York, London, Tokyo, Sydney)

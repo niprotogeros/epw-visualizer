@@ -75,7 +75,8 @@ echo ========================================
 echo.
 echo To run EPW Visualizer:
 echo 1. Double-click run.bat, or
-echo 2. Run: venv\Scripts\activate.bat ^&^& streamlit run epw_visualizer.py
+echo 2. Run: venv\Scripts\activate.bat ^&^& streamlit run epw_visualizer.py, or
+echo 3. Double-click Create_EPWVisualizer_Shortcut.vbs to create a desktop shortcut and launch app from the desktop shortcut
 echo.
 echo Installation verification: python installation\check_installation.py
 echo.
