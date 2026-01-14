@@ -1511,16 +1511,16 @@ if uploaded_file is not None:
                                 lambda row: datetime.datetime(UNIFIED_YEAR, 1, 1, int(row['hour'])) + datetime.timedelta(days=int(row['day_of_year']) - 1), axis=1
                             )
                             hourly_avg_calc = hourly_avg_calc.set_index('datetime').drop(['day_of_year', 'hour'], axis=1)
-                            hourly_avg_reindexed = hourly_avg_calc.reindex(full_hourly_idx_year).fillna(method='ffill').fillna(method='bfill')
+                            hourly_avg_reindexed = hourly_avg_calc.reindex(full_hourly_idx_year).ffill().bfill()
                         except ValueError as time_conv_err:
                              st.error(f"Error converting day/hour to datetime for aggregation: {time_conv_err}"); logging.error(f"Datetime conversion error: {time_conv_err}", exc_info=True); raise
 
                         daily_temps_calc = df_for_avg.groupby('date_only')['temp_air'].agg(['min', 'max'])
                         daily_temps_calc.index = pd.to_datetime(daily_temps_calc.index).map(lambda d: d.replace(year=UNIFIED_YEAR))
                         daily_idx_year = pd.date_range(start=f'{UNIFIED_YEAR}-01-01', end=f'{UNIFIED_YEAR}-12-31', freq='D')
-                        daily_temps_reindexed = daily_temps_calc.reindex(daily_idx_year).fillna(method='ffill').fillna(method='bfill')
-                        hourly_max_temp_plot = daily_temps_reindexed['max'].reindex(full_hourly_idx_year, method='ffill')
-                        hourly_min_temp_plot = daily_temps_reindexed['min'].reindex(full_hourly_idx_year, method='ffill')
+                        daily_temps_reindexed = daily_temps_calc.reindex(daily_idx_year).ffill().bfill()
+                        hourly_max_temp_plot = daily_temps_reindexed['max'].reindex(full_hourly_idx_year).ffill()
+                        hourly_min_temp_plot = daily_temps_reindexed['min'].reindex(full_hourly_idx_year).ffill()
 
                         fig = make_subplots(specs=[[{"secondary_y": True}]])
                         temp_color = 'darkolivegreen'; temp_range_fill_color = 'rgba(255, 192, 203, 0.3)'

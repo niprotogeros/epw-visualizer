@@ -128,7 +128,7 @@ class EPWVisualizerInstaller:
                 else:
                     pip_cmd = str(Path("venv") / "bin" / "python")
                 
-                result = subprocess.run([pip_cmd, "-c", "import streamlit, pandas, plotly, numpy"], 
+                result = subprocess.run([pip_cmd, "-c", "import streamlit, pandas, plotly, numpy"],
                                       capture_output=True, text=True)
                 if result.returncode == 0:
                     self.deps_status.config(text="✓ Installed", foreground="green")
@@ -136,7 +136,8 @@ class EPWVisualizerInstaller:
                     self.installation_complete = True
                     self.install_button.config(text="Reinstall")
                     self.launch_button.config(state=tk.NORMAL)
-            except:
+            except Exception:
+                # Dependencies not available, installation needed
                 pass
     
     def start_installation(self):
