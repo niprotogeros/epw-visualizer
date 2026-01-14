@@ -967,7 +967,9 @@ if uploaded_file is not None:
                     slider_y_min_bound = float(round(y_min_overall_col - buffer, 2))
                     slider_y_max_bound = float(round(y_max_overall_col + buffer, 2))
                     if slider_y_min_bound >= slider_y_max_bound: slider_y_max_bound = slider_y_min_bound + 1.0 # Ensure max > min
-                except Exception: pass # Use default bounds on error
+                except Exception as e:
+                    # Use default bounds on error (already set in line 955)
+                    logging.warning(f"Could not calculate slider bounds for {selected_column}: {e}. Using defaults.")
 
             # Determine if override controls are active/disabled
             disable_value_controls = True # Default to disabled (for Y-axis of Scatter/Profile unless override is on)
@@ -1140,6 +1142,11 @@ if uploaded_file is not None:
 
             if plot_type == 'Scatter Plot':
                  # For scatter, only selected column is needed early.
+                 # Validate column exists before accessing
+                 if selected_column not in df_weather_filtered_base.columns:
+                     st.error(f"Selected column '{selected_column}' not found in data.")
+                     logging.error(f"Column '{selected_column}' missing from DataFrame with columns: {df_weather_filtered_base.columns.tolist()}")
+                     st.stop()
                  filtered_df_date = df_weather_filtered_base.loc[mask_date, [selected_column]].copy()
             else:
                  # For other plots, might need all columns initially for pivoting, DST adj etc.
@@ -1511,16 +1518,16 @@ if uploaded_file is not None:
                                 lambda row: datetime.datetime(UNIFIED_YEAR, 1, 1, int(row['hour'])) + datetime.timedelta(days=int(row['day_of_year']) - 1), axis=1
                             )
                             hourly_avg_calc = hourly_avg_calc.set_index('datetime').drop(['day_of_year', 'hour'], axis=1)
-                            hourly_avg_reindexed = hourly_avg_calc.reindex(full_hourly_idx_year).fillna(method='ffill').fillna(method='bfill')
+                            hourly_avg_reindexed = hourly_avg_calc.reindex(full_hourly_idx_year).ffill().bfill()
                         except ValueError as time_conv_err:
                              st.error(f"Error converting day/hour to datetime for aggregation: {time_conv_err}"); logging.error(f"Datetime conversion error: {time_conv_err}", exc_info=True); raise
 
                         daily_temps_calc = df_for_avg.groupby('date_only')['temp_air'].agg(['min', 'max'])
                         daily_temps_calc.index = pd.to_datetime(daily_temps_calc.index).map(lambda d: d.replace(year=UNIFIED_YEAR))
                         daily_idx_year = pd.date_range(start=f'{UNIFIED_YEAR}-01-01', end=f'{UNIFIED_YEAR}-12-31', freq='D')
-                        daily_temps_reindexed = daily_temps_calc.reindex(daily_idx_year).fillna(method='ffill').fillna(method='bfill')
-                        hourly_max_temp_plot = daily_temps_reindexed['max'].reindex(full_hourly_idx_year, method='ffill')
-                        hourly_min_temp_plot = daily_temps_reindexed['min'].reindex(full_hourly_idx_year, method='ffill')
+                        daily_temps_reindexed = daily_temps_calc.reindex(daily_idx_year).ffill().bfill()
+                        hourly_max_temp_plot = daily_temps_reindexed['max'].reindex(full_hourly_idx_year).ffill()
+                        hourly_min_temp_plot = daily_temps_reindexed['min'].reindex(full_hourly_idx_year).ffill()
 
                         fig = make_subplots(specs=[[{"secondary_y": True}]])
                         temp_color = 'darkolivegreen'; temp_range_fill_color = 'rgba(255, 192, 203, 0.3)'
@@ -1610,7 +1617,9 @@ if uploaded_file is not None:
                     # Formatting for table view
                     if isinstance(display_table.index, pd.DatetimeIndex):
                          try: display_table.index = display_table.index.strftime('%Y-%m-%d %H:%M')
-                         except Exception: pass # Silently ignore if strftime fails
+                         except Exception as e:
+                             # Keep original index format if strftime fails
+                             logging.warning(f"Could not format DatetimeIndex for table display: {e}")
                     
                     # Round numeric data for display
                     for col_to_round in display_table.columns:
